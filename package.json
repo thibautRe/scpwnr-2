@@ -1,0 +1,15 @@
+{
+  "name": "scpwnr2",
+  "version": "0.0.1",
+  "description": "Soundcloud Pwnr* v2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Thibaut Remy <thibaut@thibaut.re>",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^1.12.2"
+  }
+}
