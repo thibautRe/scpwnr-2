@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`title parser: BIJOU - Memories 1`] = `
+Object {
+  "artist": "BIJOU",
+  "name": "Memories",
+}
+`;
+
+exports[`title parser: Black Coast - TRNDSTTR (Lucian Remix) [feat. M. Maggie] 1`] = `
+Object {
+  "artist": "Black Coast",
+  "ft": "M. Maggie",
+  "name": "TRNDSTTR",
+  "remixType": "remix",
+  "remixedBy": "Lucian",
+}
+`;
+
+exports[`title parser: Blank (feat. Kennedi) 1`] = `
+Object {
+  "ft": "Kennedi",
+  "name": "Blank",
+}
+`;
+
+exports[`title parser: Maff Boothroyd - Miss You 🍉 1`] = `
+Object {
+  "artist": "Maff Boothroyd",
+  "name": "Miss You 🍉",
+}
+`;
