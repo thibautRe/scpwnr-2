@@ -27,8 +27,9 @@ const getNameInfo = (title) => {
   return regexResult && { name: regexResult[1].trim() }
 }
 
-module.exports = (title = '') => {
+module.exports = (title = '', artist) => {
   return {
+    ...(artist && { artist }),
     ...getArtistInfo(title),
     ...getNameInfo(title),
     ...getFtInfo(title),
