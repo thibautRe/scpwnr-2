@@ -1,5 +1,9 @@
+const imageUrlScaper = require('./scraper/imageUrl')
+const titleScraper = require('./scraper/title')
+
 module.exports = async (browser, url) => {
-  const page = await browser.newPage()
+  const context = await browser.createIncognitoBrowserContext()
+  const page = await context.newPage()
   let mp3Url
   page.on('requestfinished', (request) => {
     const url = request.url()
@@ -11,12 +15,16 @@ module.exports = async (browser, url) => {
     }
   })
   await page.goto(url)
-  await page.close()
+
+  // Retrieve image URL
+  const imgUrl = await imageUrlScaper(page)
+  const title = await titleScraper(page)
 
   if (!mp3Url)
     throw new Error(
       'Url cf-hls-media.sndcdn.com/media/0/* not requested by the page',
     )
 
-  return { mp3Url }
+  await page.close()
+  return { mp3Url, imgUrl, title }
 }
