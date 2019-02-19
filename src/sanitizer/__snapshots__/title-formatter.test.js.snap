@@ -4,6 +4,8 @@ exports[`title formatter: {"artist":"Artist"} 1`] = `"Artist - Untitled"`;
 
 exports[`title formatter: {"artist":"artist","remixedBy":"RemixedBy"} 1`] = `"artist - Untitled (RemixedBy remix)"`;
 
+exports[`title formatter: {"artist":"k?d","name":"Name"} 1`] = `"k?d - Name"`;
+
 exports[`title formatter: {"name":"Name","artist":"Artist","remixedBy":"RemixedBy","ft":"Featuring"} 1`] = `"Artist - Name (RemixedBy remix) (ft. Featuring)"`;
 
 exports[`title formatter: {"name":"Name","artist":"Artist","remixedBy":"RemixedBy"} 1`] = `"Artist - Name (RemixedBy remix)"`;

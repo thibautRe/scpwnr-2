@@ -27,6 +27,10 @@ const fixtures = [
     artist: 'artist',
     remixedBy: 'RemixedBy',
   },
+  {
+    artist: 'k?d',
+    name: 'Name',
+  },
 ]
 
 test('title formatter', () => {
