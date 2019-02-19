@@ -30,3 +30,12 @@ Object {
   "name": "Miss You 🍉",
 }
 `;
+
+exports[`title parser: Tails X Inverness – Skeleton Ft. Nevve (Voorhees Remix) 1`] = `
+Object {
+  "artist": "Tails X Inverness",
+  "name": "Skeleton Ft. Nevve",
+  "remixType": "remix",
+  "remixedBy": "Voorhees",
+}
+`;

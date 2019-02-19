@@ -15,13 +15,13 @@ const getFtInfo = (title) => {
   return regexResult && { ft: regexResult[1].trim() }
 }
 
-const artistRegex = /^(.+?)\s*-/i
+const artistRegex = /^(.+?)\s*[-–]/i
 const getArtistInfo = (title) => {
   const regexResult = artistRegex.exec(title) || undefined
   return regexResult && { artist: regexResult[1].trim() }
 }
 
-const nameRegex = /(?:(?:.+?\s*-\s*)|^)([^\(\[]+)/i
+const nameRegex = /(?:(?:.+?\s*[-–]\s*)|^)([^\(\[]+)/i
 const getNameInfo = (title) => {
   const regexResult = nameRegex.exec(title) || undefined
   return regexResult && { name: regexResult[1].trim() }

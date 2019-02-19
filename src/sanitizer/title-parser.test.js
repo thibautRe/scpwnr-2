@@ -5,6 +5,7 @@ const fixtures = [
   'Maff Boothroyd - Miss You 🍉',
   'Blank (feat. Kennedi)',
   'BIJOU - Memories',
+  'Tails X Inverness – Skeleton Ft. Nevve (Voorhees Remix)',
 ]
 
 test('title parser', () => {
