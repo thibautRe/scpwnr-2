@@ -1,16 +1,15 @@
 const fs = require('fs')
 const https = require('https')
 
-module.exports = (url, filename) =>
+module.exports = (url) =>
   new Promise((resolve, reject) => {
-    const file = fs.createWriteStream(filename)
+    let buffer = Buffer.from('')
     https.get(url, (res) => {
       res.on('data', (data) => {
-        file.write(data)
+        buffer = Buffer.concat([buffer, data])
       })
       res.on('end', () => {
-        file.end()
-        resolve()
+        resolve(buffer)
       })
     })
   })

@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs')
 const puppeteer = require('puppeteer')
 const ID3 = require('node-id3')
 
@@ -11,28 +12,27 @@ const run = async () => {
   const info = await getSoundcloudInfos(browser, process.argv[2])
   console.log(info)
 
-  const mp3Path = path.resolve('tmp', `${info.pretty}.mp3`)
-  const imgPath = path.resolve('tmp', `${info.pretty}.jpg`)
-
   console.log('Downloading mp3 and cover art')
-  await Promise.all([
-    download(info.mp3Url, mp3Path),
-    download(info.imgUrl, imgPath),
+  const [mp3Buffer, imgBuffer] = await Promise.all([
+    download(info.mp3Url),
+    download(info.imgUrl),
   ])
 
   const mp3Tags = {
     artist: info.artist,
     title: info.title,
-    APIC: imgPath,
+    APIC: imgBuffer,
   }
 
   console.log('Writing mp3 tags to file')
-  await new Promise((resolve, reject) => {
-    ID3.write(mp3Tags, mp3Path, (err) => {
+  const fileBuffer = await new Promise((resolve, reject) => {
+    ID3.write(mp3Tags, mp3Buffer, (err, buffer) => {
       if (err) reject(err)
-      resolve()
+      resolve(buffer)
     })
   })
+
+  fs.writeFileSync(path.resolve('tmp', `${info.pretty}.mp3`), fileBuffer)
 
   await browser.close()
 }
