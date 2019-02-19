@@ -11,6 +11,7 @@
   "author": "Thibaut Remy <thibaut@thibaut.re>",
   "license": "MIT",
   "dependencies": {
+    "filenamify": "^2.1.0",
     "jest": "^24.1.0",
     "node-id3": "^0.1.7",
     "puppeteer": "^1.12.2"

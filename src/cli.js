@@ -1,6 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const puppeteer = require('puppeteer')
+const filenamify = require('filenamify')
 
 const run = require('./run')
 
@@ -10,7 +11,13 @@ const start = async () => {
   const [_, __, ...urls] = process.argv
   for (const url of urls) {
     const { mp3FileBuffer, title } = await run(url, browser)
-    fs.writeFileSync(path.resolve('tmp', `${title.pretty}.mp3`), mp3FileBuffer)
+    fs.writeFileSync(
+      path.resolve(
+        'tmp',
+        filenamify(`${title.pretty}.mp3`, { replacement: '_' }),
+      ),
+      mp3FileBuffer,
+    )
   }
 
   await browser.close()
