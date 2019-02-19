@@ -1,5 +1,6 @@
 const imageUrlScaper = require('./imageUrl')
 const titleScraper = require('./title')
+const dateScraper = require('./date')
 
 module.exports = async (browser, url) => {
   const context = await browser.createIncognitoBrowserContext()
@@ -16,9 +17,9 @@ module.exports = async (browser, url) => {
   })
   await page.goto(url)
 
-  // Retrieve image URL
   const imgUrl = await imageUrlScaper(page)
   const title = await titleScraper(page)
+  const date = await dateScraper(page)
 
   if (!mp3Url)
     throw new Error(
@@ -26,5 +27,5 @@ module.exports = async (browser, url) => {
     )
 
   await page.close()
-  return { mp3Url, imgUrl, ...title }
+  return { mp3Url, imgUrl, date, ...title }
 }

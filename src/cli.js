@@ -11,6 +11,7 @@ const run = async () => {
   const browser = await puppeteer.launch()
 
   const info = await getSoundcloudInfos(browser, process.argv[2])
+  console.log(info)
 
   // Sanitize the title, by extracting the relevant information
   // from the data scraped from SC
@@ -26,6 +27,8 @@ const run = async () => {
     artist: title.artist,
     title: title.name,
     remixArtist: title.remixedBy,
+    date: info.date,
+    year: info.date && info.date.getFullYear(),
     APIC: imgBuffer,
   }
 
