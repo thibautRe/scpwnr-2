@@ -12,6 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "jest": "^24.1.0",
+    "node-id3": "^0.1.7",
     "puppeteer": "^1.12.2"
   }
 }

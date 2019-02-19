@@ -26,5 +26,5 @@ module.exports = async (browser, url) => {
     )
 
   await page.close()
-  return { mp3Url, imgUrl, title }
+  return { mp3Url, imgUrl, ...title }
 }
