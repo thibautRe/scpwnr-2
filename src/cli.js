@@ -20,7 +20,8 @@ const run = async () => {
 
   const mp3Tags = {
     artist: info.artist,
-    title: info.title,
+    title: info.name,
+    remixArtist: info.remixedBy,
     APIC: imgBuffer,
   }
 
