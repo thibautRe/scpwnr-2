@@ -5,12 +5,16 @@ const ID3 = require('node-id3')
 
 const getSoundcloudInfos = require('./scraper')
 const download = require('./downloader')
+const sanitize = require('./sanitizer/title')
 
 const run = async () => {
   const browser = await puppeteer.launch()
 
   const info = await getSoundcloudInfos(browser, process.argv[2])
-  console.log(info)
+
+  // Sanitize the title, by extracting the relevant information
+  // from the data scraped from SC
+  const title = sanitize(info.scTitle, info.scArtist)
 
   console.log('Downloading mp3 and cover art')
   const [mp3Buffer, imgBuffer] = await Promise.all([
@@ -19,9 +23,9 @@ const run = async () => {
   ])
 
   const mp3Tags = {
-    artist: info.artist,
-    title: info.name,
-    remixArtist: info.remixedBy,
+    artist: title.artist,
+    title: title.name,
+    remixArtist: title.remixedBy,
     APIC: imgBuffer,
   }
 
@@ -33,7 +37,7 @@ const run = async () => {
     })
   })
 
-  fs.writeFileSync(path.resolve('tmp', `${info.pretty}.mp3`), fileBuffer)
+  fs.writeFileSync(path.resolve('tmp', `${title.pretty}.mp3`), fileBuffer)
 
   await browser.close()
 }
