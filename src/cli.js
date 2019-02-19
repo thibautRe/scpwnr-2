@@ -7,9 +7,11 @@ const run = require('./run')
 const start = async () => {
   const browser = await puppeteer.launch()
 
-  const { mp3FileBuffer, title } = await run(process.argv[2], browser)
-
-  fs.writeFileSync(path.resolve('tmp', `${title.pretty}.mp3`), mp3FileBuffer)
+  const [_, __, ...urls] = process.argv
+  for (const url of urls) {
+    const { mp3FileBuffer, title } = await run(url, browser)
+    fs.writeFileSync(path.resolve('tmp', `${title.pretty}.mp3`), mp3FileBuffer)
+  }
 
   await browser.close()
 }
