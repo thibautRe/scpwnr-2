@@ -1,5 +1,5 @@
-const imageUrlScaper = require('./scraper/imageUrl')
-const titleScraper = require('./scraper/title')
+const imageUrlScaper = require('./imageUrl')
+const titleScraper = require('./title')
 
 module.exports = async (browser, url) => {
   const context = await browser.createIncognitoBrowserContext()
