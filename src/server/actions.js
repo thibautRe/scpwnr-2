@@ -22,14 +22,16 @@ const getTags = async (filename) => {
 const getSound = async (filename) => {
   const tags = await getTags(filename)
 
-  // Remove image data, to make the response smaller
-  tags.raw.APIC = undefined
-  tags.image = undefined
-
   return {
     filename,
-    tags,
-    imgUrl: `/sounds/${filename}/img`,
+    tags: {
+      ...tags,
+      // Remove `raw` data
+      raw: undefined,
+      // Remove image data, to make the response smaller
+      image: undefined,
+    },
+    imgUrl: `/sound/image/${filename}`,
   }
 }
 
@@ -39,4 +41,9 @@ exports.getSounds = async () => {
   )
 
   return Promise.all(filenames.map(getSound))
+}
+
+exports.getImage = async (filename) => {
+  const tags = await getTags(filename)
+  return tags.image.imageBuffer
 }
