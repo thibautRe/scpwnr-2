@@ -4,34 +4,47 @@ import styled from 'styled-components'
 const Wrapper = styled.div`
   width: 20%;
   padding: 18px;
+
+  @media (max-width: 900px) {
+    width: 33%;
+    padding: 10px;
+  }
+
+  @media (max-width: 375px) {
+    width: 50%;
+    padding: 6px;
+  }
 `
 
-const ImgWrapper = styled.div`
+const AbsoluteWrapper = styled.div`
   position: relative;
   height: 0px;
   padding-bottom: 100%;
   overflow: hidden;
 `
+
 const Img = styled.img`
   position: absolute;
   top: 0px;
   left: 0px;
   height: 100%;
   width: 100%;
-  background-color: rgb(200, 237, 106, 0.8);
-  transition: opacity 0.3s;
+  transition: opacity 0.3s, transform 0.8s;
 
-  ${ImgWrapper}:hover & {
+  ${AbsoluteWrapper}:hover & {
+    transform: scale(0.97) translateY(2px);
+  }
+`
+
+const MainImg = styled(Img)`
+  background-color: rgb(0, 0, 0, 0.8);
+
+  ${AbsoluteWrapper}:hover & {
     opacity: 0;
   }
 `
 
-const BlurryImg = styled.img`
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  height: 100%;
-  width: 100%;
+const BlurryImg = styled(Img)`
   filter: blur(2px) saturate(0.3);
 `
 
@@ -56,25 +69,25 @@ const NameWrapper = styled.div`
   background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0));
   color: white;
   transform: translateY(100%);
-  transition: transform 0.15s ease-out;
+  transition: transform 0.15s;
 
-  ${ImgWrapper}:hover & {
+  ${AbsoluteWrapper}:hover & {
     transform: translateY(0px);
   }
 `
 
 const SoundListItem = ({ tags, imgUrl }) => (
   <Wrapper>
-    <ImgWrapper>
+    <AbsoluteWrapper>
       <BlurryImg src={imgUrl} />
-      <Img src={imgUrl} />
+      <MainImg src={imgUrl} />
       <NameWrapper>
         <Artist>{tags.artist}</Artist>
         <Title>
           {tags.title} {tags.remixArtist && `(${tags.remixArtist} remix)`}
         </Title>
       </NameWrapper>
-    </ImgWrapper>
+    </AbsoluteWrapper>
   </Wrapper>
 )
 

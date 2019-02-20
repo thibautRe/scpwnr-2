@@ -2,6 +2,7 @@ import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 
 import SoundList from './components/soundsList'
+import DownloadInput from './components/downloadInput'
 
 const GlobalStyles = createGlobalStyle`
   html {
@@ -12,6 +13,10 @@ const GlobalStyles = createGlobalStyle`
     font-family: sans-serif;
   }
 
+  body {
+    margin: 0;
+  }
+
   *, *::after, *::before {
     box-sizing: inherit
   }
@@ -20,6 +25,7 @@ const GlobalStyles = createGlobalStyle`
 const App = () => (
   <>
     <GlobalStyles />
+    <DownloadInput />
     <SoundList />
   </>
 )
