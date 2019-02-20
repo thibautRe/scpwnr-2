@@ -5,15 +5,25 @@
   "main": "index.js",
   "scripts": {
     "cli": "node src/cli.js",
+    "server": "node src/server.js",
     "test": "jest"
   },
-  "keywords": [],
+  "keywords": [
+    "soundcloud",
+    "dowloading",
+    "scraping",
+    "puppeteer"
+  ],
   "author": "Thibaut Remy <thibaut@thibaut.re>",
   "license": "MIT",
   "dependencies": {
     "filenamify": "^2.1.0",
-    "jest": "^24.1.0",
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
     "node-id3": "^0.1.7",
     "puppeteer": "^1.12.2"
+  },
+  "devDependencies": {
+    "jest": "^24.1.0"
   }
 }
