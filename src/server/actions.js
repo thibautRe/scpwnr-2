@@ -2,7 +2,17 @@ const fs = require('fs')
 const { promisify } = require('util')
 const path = require('path')
 
+const puppeteer = require('puppeteer')
 const ID3 = require('node-id3')
+const filenamify = require('filenamify')
+const run = require('../run')
+
+// hackity hack - spin the browser and keep
+// it in memory
+let browser
+puppeteer.launch().then((b) => {
+  browser = b
+})
 
 const cachedTags = {}
 
@@ -46,4 +56,11 @@ exports.getSounds = async () => {
 exports.getImage = async (filename) => {
   const tags = await getTags(filename)
   return tags.image.imageBuffer
+}
+
+exports.download = async (scUrl) => {
+  const { mp3FileBuffer, title } = await run(scUrl, browser)
+  const filename = filenamify(`${title.pretty}.mp3`, { replacement: '_' })
+  await promisify(fs.writeFile)(path.resolve('tmp', filename), mp3FileBuffer)
+  return await getSound(filename)
 }

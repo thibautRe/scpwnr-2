@@ -1,9 +1,16 @@
 const Koa = require('koa')
 const Router = require('koa-router')
 
-const { getSounds, getImage } = require('./server/actions')
+const { getSounds, getImage, download } = require('./server/actions')
 
 const router = new Router()
+
+router.get('/download/(.*)', async (ctx) => {
+  const scUrl = ctx.params['0']
+
+  const sound = await download(scUrl)
+  ctx.body = { sound }
+})
 
 router.get('/sounds/', async (ctx) => {
   const sounds = await getSounds()
