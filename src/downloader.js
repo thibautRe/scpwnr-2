@@ -1,4 +1,3 @@
-const fs = require('fs')
 const https = require('https')
 
 module.exports = (url) =>
@@ -11,5 +10,6 @@ module.exports = (url) =>
       res.on('end', () => {
         resolve(buffer)
       })
+      res.on('error', reject)
     })
   })
