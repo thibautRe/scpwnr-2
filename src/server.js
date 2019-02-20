@@ -1,7 +1,9 @@
 const Koa = require('koa')
 const Router = require('koa-router')
+const koaWebpack = require('koa-webpack')
 
 const { getSounds, getImage, download } = require('./server/actions')
+const webpackConfig = require('../client/webpack.config')
 
 const router = new Router()
 
@@ -18,7 +20,7 @@ router.get('/sounds/', async (ctx) => {
 })
 
 router.get('/sound/image/:img*', async (ctx) => {
-  if (!ctx.params.img) ctx.throw(404)
+  if (!ctx.params.img) return ctx.throw(404)
 
   const imageBuffer = await getImage(ctx.params.img)
 
@@ -27,6 +29,10 @@ router.get('/sound/image/:img*', async (ctx) => {
 })
 
 const app = new Koa()
+
+koaWebpack({
+  config: webpackConfig('development'),
+}).then((middleware) => app.use(middleware))
 
 app.use(router.routes())
 app.use(router.allowedMethods())
