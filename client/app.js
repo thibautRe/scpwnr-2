@@ -1,5 +1,10 @@
 import React from 'react'
 
-const App = () => <h1>SCPWNR2</h1>
+import SoundList from './components/soundsList'
+const App = () => (
+  <>
+    <SoundList />
+  </>
+)
 
 export default App
