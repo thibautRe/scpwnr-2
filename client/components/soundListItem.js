@@ -29,6 +29,7 @@ const Img = styled.img`
   left: 0px;
   height: 100%;
   width: 100%;
+  border-radius: 8px;
   transition: opacity 0.3s, transform 0.8s;
 
   ${AbsoluteWrapper}:hover & {
