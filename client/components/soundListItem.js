@@ -46,8 +46,9 @@ const MainImg = styled(Img)`
   }
 `
 
-const BlurryImg = styled(Img)`
-  filter: blur(2px) saturate(0.3);
+const BlurryImg = styled(Img).attrs({ as: 'div' })`
+  background: url("${(p) => p.imgsrc}") center center / 100% 100%;
+  filter: blur(2px) saturate(0.5);
 `
 
 const Artist = styled.span`
@@ -81,8 +82,11 @@ const NameWrapper = styled.div`
 const SoundListItem = ({ tags, imgUrl }) => (
   <Wrapper>
     <AbsoluteWrapper>
-      <BlurryImg src={imgUrl} />
-      <MainImg src={imgUrl} />
+      <BlurryImg imgsrc={imgUrl} />
+      <MainImg
+        src={imgUrl}
+        alt={`Image for sound ${tags.title} by ${tags.artist}`}
+      />
       <NameWrapper>
         <Artist>{tags.artist}</Artist>
         <Title>

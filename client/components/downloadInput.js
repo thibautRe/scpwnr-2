@@ -53,7 +53,8 @@ const Button = styled.button`
   z-index: -1;
 
   ${Input}:focus ~ &,
-  &:focus {
+  &:focus,
+  &:active {
     transform: translateX(0px);
   }
 `
