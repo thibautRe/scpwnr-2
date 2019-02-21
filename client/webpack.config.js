@@ -27,4 +27,8 @@ module.exports = (mode) => ({
     }),
   ].filter(Boolean),
   devtool: 'source-map',
+  devServer: {
+    quiet: true,
+    clientLogLevel: 'error',
+  },
 })

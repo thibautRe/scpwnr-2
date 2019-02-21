@@ -5,38 +5,46 @@ const koaWebpack = require('koa-webpack')
 const { getSounds, getImage, download } = require('./server/actions')
 const webpackConfig = require('../client/webpack.config')
 
-const router = new Router()
+const setUp = async () => {
+  const router = new Router()
 
-router.get('/download/(.*)', async (ctx) => {
-  const scUrl = ctx.params['0']
+  router.get('/download/(.*)', async (ctx) => {
+    const scUrl = ctx.params['0']
 
-  const sound = await download(scUrl)
-  ctx.body = { sound }
-})
+    const sound = await download(scUrl)
+    ctx.body = { sound }
+  })
 
-router.get('/sounds/', async (ctx) => {
-  const sounds = await getSounds()
-  ctx.body = { sounds }
-})
+  router.get('/sounds/', async (ctx) => {
+    const sounds = await getSounds()
+    ctx.body = { sounds }
+  })
 
-router.get('/sound/image/:img*', async (ctx) => {
-  if (!ctx.params.img) return ctx.throw(404)
+  router.get('/sound/image/:img*', async (ctx) => {
+    if (!ctx.params.img) return ctx.throw(404)
 
-  const imageBuffer = await getImage(ctx.params.img)
+    const imageBuffer = await getImage(ctx.params.img)
 
-  ctx.type = 'jpg'
-  ctx.body = imageBuffer
-})
+    ctx.type = 'jpg'
+    ctx.body = imageBuffer
+  })
 
-const app = new Koa()
+  const webpackMiddleware = await koaWebpack({
+    config: webpackConfig('development'),
+  })
 
-koaWebpack({
-  config: webpackConfig('development'),
-}).then((middleware) => app.use(middleware))
+  const app = new Koa()
+  app.use(webpackMiddleware)
 
-app.use(router.routes())
-app.use(router.allowedMethods())
+  app.use(router.routes())
+  app.use(router.allowedMethods())
 
-app.listen(3000, () => {
-  console.log('Server listening on port 3000')
+  app.listen(3000, () => {
+    console.log('Server listening on port 3000')
+  })
+}
+
+setUp().catch((err) => {
+  console.error(err)
+  process.exit(1)
 })
