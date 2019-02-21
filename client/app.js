@@ -4,13 +4,22 @@ import { createGlobalStyle } from 'styled-components'
 import SoundList from './components/soundsList'
 import DownloadInput from './components/downloadInput'
 
+import font from './fonts/ObjectSans-Regular.woff'
+
 const GlobalStyles = createGlobalStyle`
+
+  @font-face {
+    font-family: Spectral;
+    font-weight: 500;
+    src: url(${font}) format("woff");
+  }
+
   html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     overflow-y: scroll;
-    font-family: sans-serif;
+    font-family: "Spectral", sans-serif;
   }
 
   body {
