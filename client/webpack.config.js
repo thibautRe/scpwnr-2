@@ -15,9 +15,13 @@ module.exports = (mode) => ({
   module: {
     rules: [
       {
-        test: /\.js/,
+        test: /\.js$/,
         exclude: /node_modules/,
         use: { loader: 'babel-loader', options: babelOptions },
+      },
+      {
+        test: /\.(woff2?)$/,
+        use: 'file-loader',
       },
     ],
   },
