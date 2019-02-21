@@ -1,21 +1,28 @@
 import React from 'react'
 import styled from 'styled-components'
+import { SIZES, borderRadius, COLORS, TRANSITIONS } from '../styles'
 
 const Form = styled.form`
   display: flex;
   position: relative;
-  margin: 30vh auto;
-  padding: 0 10px;
+  margin: 20vh auto;
+  padding: 0 ${SIZES.m};
   max-width: 500px;
 `
 
 const Input = styled.input`
   display: block;
   flex: 1;
-  padding: 10px 20px;
+  padding: ${SIZES.m} ${SIZES.l};
   font-family: inherit;
-  border-radius: 8px;
+  border-radius: ${borderRadius};
   border: 3px solid rgba(0, 0, 0, 0.6);
+  background: white;
+  transition: border-color ${TRANSITIONS.m};
+
+  &:focus {
+    border-color: ${COLORS.accent};
+  }
 `
 
 const Label = styled.label`
@@ -24,17 +31,31 @@ const Label = styled.label`
   left: 20px;
   font-size: 12px;
   background: white;
-  padding: 0px 10px;
+  padding: 0 ${SIZES.m};
   pointer-events: none;
+  transition: color ${TRANSITIONS.m};
+
+  ${Input}:focus + & {
+    color: ${COLORS.accent};
+  }
 `
 
 const Button = styled.button`
   width: 50px;
-  margin-left: 10px;
-  border-radius: 8px;
+  margin-left: ${SIZES.m};
+  border-radius: ${borderRadius};
   border: 3px solid transparent;
   color: white;
-  background: rgba(0, 0, 0, 0.6);
+  background: ${COLORS.accent};
+  font-family: inherit;
+  transform: translateX(-200%);
+  transition: transform ${TRANSITIONS.m};
+  z-index: -1;
+
+  ${Input}:focus ~ &,
+  &:focus {
+    transform: translateX(0px);
+  }
 `
 
 const DownloadInput = () => {
@@ -51,13 +72,14 @@ const DownloadInput = () => {
         setIsLoading(false)
       }}
     >
-      <Label>Download</Label>
       <Input
         type="text"
+        id="downloadInput"
         value={downloadValue}
         placeholder="https://soundcloud.com/"
         onInput={(e) => setDownloadInputValue(e.target.value)}
       />
+      <Label for="downloadInput">Download</Label>
       <Button type="submit">{isLoading ? '🐦' : 'Go'}</Button>
     </Form>
   )

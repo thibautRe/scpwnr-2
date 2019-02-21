@@ -1,18 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
+import { SIZES, borderRadius, TRANSITIONS } from '../styles'
 
 const Wrapper = styled.div`
   width: 20%;
-  padding: 18px;
+  padding: ${SIZES.l};
 
   @media (max-width: 900px) {
     width: 33%;
-    padding: 10px;
+    padding: ${SIZES.m};
   }
 
   @media (max-width: 375px) {
     width: 50%;
-    padding: 6px;
+    padding: ${SIZES.s};
   }
 `
 
@@ -29,8 +30,8 @@ const Img = styled.img`
   left: 0px;
   height: 100%;
   width: 100%;
-  border-radius: 8px;
-  transition: opacity 0.3s, transform 0.8s;
+  border-radius: ${borderRadius};
+  transition: opacity ${TRANSITIONS.m}, transform ${TRANSITIONS.l};
 
   ${AbsoluteWrapper}:hover & {
     transform: scale(0.97) translateY(2px);
@@ -66,11 +67,11 @@ const NameWrapper = styled.div`
   bottom: 0px;
   left: 0px;
   right: 0px;
-  padding: 30px 10px 10px;
+  padding: 30px ${SIZES.m} ${SIZES.m};
   background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0));
   color: white;
   transform: translateY(100%);
-  transition: transform 0.15s;
+  transition: transform ${TRANSITIONS.s};
 
   ${AbsoluteWrapper}:hover & {
     transform: translateY(0px);
