@@ -13,4 +13,5 @@ export const TRANSITIONS = {
 
 export const COLORS = {
   accent: '#e24f83',
+  black: '#180f30',
 }

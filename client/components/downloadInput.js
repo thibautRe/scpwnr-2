@@ -16,9 +16,14 @@ const Input = styled.input`
   padding: ${SIZES.m} ${SIZES.l};
   font-family: inherit;
   border-radius: ${borderRadius};
-  border: 3px solid rgba(0, 0, 0, 0.6);
+  border: 3px solid ${COLORS.black};
   background: white;
   transition: border-color ${TRANSITIONS.m};
+
+  ::placeholder {
+    color: ${COLORS.black};
+    opacity: 0.3;
+  }
 
   &:focus {
     border-color: ${COLORS.accent};
@@ -48,15 +53,10 @@ const Button = styled.button`
   color: white;
   background: ${COLORS.accent};
   font-family: inherit;
-  transform: translateX(-200%);
-  transition: transform ${TRANSITIONS.m};
   z-index: -1;
-
-  ${Input}:focus ~ &,
-  &:focus,
-  &:active {
-    transform: translateX(0px);
-  }
+  transform: translateX(${(p) => (p.isOut ? '0px' : '-200%')});
+  transition: transform ${TRANSITIONS.m} ease-in-out;
+  will-change: transform;
 `
 
 const DownloadInput = () => {
@@ -66,10 +66,11 @@ const DownloadInput = () => {
     <Form
       onSubmit={async (e) => {
         e.preventDefault()
-        const value = downloadValue
+
         setDownloadInputValue('')
         setIsLoading(true)
-        const response = await fetch(`/download/${value}`)
+
+        await fetch(`/download/${downloadValue}`)
         setIsLoading(false)
       }}
     >
@@ -81,7 +82,9 @@ const DownloadInput = () => {
         onInput={(e) => setDownloadInputValue(e.target.value)}
       />
       <Label for="downloadInput">Download</Label>
-      <Button type="submit">{isLoading ? '🐦' : 'Go'}</Button>
+      <Button type="submit" isOut={!!downloadValue}>
+        {isLoading ? '🐦' : 'Go'}
+      </Button>
     </Form>
   )
 }
