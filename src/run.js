@@ -22,6 +22,7 @@ module.exports = async (scUrl, browser) => {
     artist: title.artist,
     title: title.name,
     remixArtist: title.remixedBy,
+    album: title.pretty,
     date: info.date,
     year: info.date && info.date.getFullYear(),
     APIC: imgBuffer,
