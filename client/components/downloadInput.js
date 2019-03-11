@@ -83,7 +83,7 @@ const DownloadInput = () => {
         placeholder="https://soundcloud.com/"
         onInput={(e) => setDownloadInputValue(e.target.value)}
       />
-      <Label for="downloadInput">Download</Label>
+      <Label htmlFor="downloadInput">Download</Label>
       <Button type="submit" isOut={!!downloadValue}>
         {isLoading ? '🐦' : 'Go'}
       </Button>
