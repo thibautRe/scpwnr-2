@@ -19,6 +19,7 @@ const Input = styled.input`
   border: 3px solid ${COLORS.black};
   background: white;
   transition: border-color ${TRANSITIONS.m};
+  z-index: 1;
 
   ::placeholder {
     color: ${COLORS.black};
@@ -39,6 +40,7 @@ const Label = styled.label`
   padding: 0 ${SIZES.m};
   pointer-events: none;
   transition: color ${TRANSITIONS.m};
+  z-index: 1;
 
   ${Input}:focus + & {
     color: ${COLORS.accent};
@@ -53,10 +55,10 @@ const Button = styled.button`
   color: white;
   background: ${COLORS.accent};
   font-family: inherit;
-  z-index: -1;
   transform: translateX(${(p) => (p.isOut ? '0px' : '-200%')});
   transition: transform ${TRANSITIONS.m} ease-in-out;
   will-change: transform;
+  cursor: pointer;
 `
 
 const DownloadInput = () => {
