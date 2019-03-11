@@ -10,6 +10,9 @@ module.exports = (url) =>
       res.on('end', () => {
         resolve(buffer)
       })
-      res.on('error', reject)
+      res.on('error', (e) => {
+        console.error(`Cannot download URL ${url}`)
+        reject(e)
+      })
     })
   })
