@@ -5,14 +5,16 @@ const dateScraper = require('./date')
 module.exports = async (browser, url) => {
   const context = await browser.createIncognitoBrowserContext()
   const page = await context.newPage()
-  let mp3Url
+  let playlist
   page.on('requestfinished', (request) => {
     const url = request.url()
-    if (!mp3Url && url.includes('cf-hls-media.sndcdn.com/media/0')) {
-      // The URL structure is "<host>/media/<timestamp-start>/<timestamp-end>"
-      // By adding an arbitrary big number to <timestamp-end>,
-      // we make sure that we get all the audio data.
-      mp3Url = url.replace('/media/0/', '/media/0/1000')
+    if (!playlist && url.includes('playlist.m3u8')) {
+      request
+        .response()
+        .text()
+        .then((playlistText) => {
+          playlist = playlistText.split('\n').filter((line) => line[0] !== '#')
+        })
     }
   })
   await page.goto(url)
@@ -21,11 +23,8 @@ module.exports = async (browser, url) => {
   const title = await titleScraper(page)
   const date = await dateScraper(page)
 
-  if (!mp3Url)
-    throw new Error(
-      'Url cf-hls-media.sndcdn.com/media/0/* not requested by the page',
-    )
+  if (!playlist) throw new Error('Cannot find playlist URL')
 
   await page.close()
-  return { mp3Url, imgUrl, date, ...title }
+  return { playlist, imgUrl, date, ...title }
 }

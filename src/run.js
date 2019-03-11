@@ -4,6 +4,11 @@ const getSoundcloudInfos = require('./scraper')
 const download = require('./downloader')
 const sanitize = require('./sanitizer/title')
 
+const downloadPlaylist = async (playlist) => {
+  const allChunks = await Promise.all(playlist.map(download))
+  return Buffer.concat(allChunks)
+}
+
 module.exports = async (scUrl, browser) => {
   const info = await getSoundcloudInfos(browser, scUrl)
   console.log(info)
@@ -14,7 +19,7 @@ module.exports = async (scUrl, browser) => {
 
   console.log('Downloading mp3 and cover art')
   const [mp3Buffer, imgBuffer] = await Promise.all([
-    download(info.mp3Url),
+    downloadPlaylist(info.playlist),
     download(info.imgUrl),
   ])
 
