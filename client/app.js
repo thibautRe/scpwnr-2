@@ -39,8 +39,8 @@ const GlobalStyles = createGlobalStyle`
 const App = () => (
   <DownloadProvider>
     <GlobalStyles />
-    <DownloadInput />
     <DownloadList />
+    <DownloadInput />
     <SoundList />
   </DownloadProvider>
 )

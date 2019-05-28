@@ -11,10 +11,9 @@ export const DownloadProvider = ({ children }) => {
     <DownloadContext.Provider
       value={{
         downloadList,
-        isDownloading: () =>
-          downloadList.some(
-            (item) => item.status === DOWNLOAD_STATUSES.downloading,
-          ),
+        isDownloading: downloadList.some(
+          (item) => item.status === DOWNLOAD_STATUSES.downloading,
+        ),
         addToDownloadList: (name) => {
           setDownloadList((l) => [
             ...l,
