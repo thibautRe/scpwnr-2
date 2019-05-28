@@ -10,9 +10,16 @@ const run = require('../run')
 // hackity hack - spin the browser and keep
 // it in memory
 let browser
-puppeteer.launch().then((b) => {
-  browser = b
-})
+puppeteer
+  .launch()
+  .then((b) => {
+    browser = b
+  })
+  .catch((err) => {
+    console.error('Error when launching puppeteer')
+    console.error(err)
+    process.exit(1)
+  })
 
 const cachedTags = {}
 
