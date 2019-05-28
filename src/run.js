@@ -5,8 +5,11 @@ const download = require('./downloader')
 const sanitize = require('./sanitizer/title')
 
 const downloadPlaylist = async (playlist) => {
-  const allChunks = await Promise.all(playlist.map(download))
-  return Buffer.concat(allChunks)
+  let buffer = Buffer.alloc(0)
+  for (const part of playlist) {
+    buffer = Buffer.concat([buffer, await download(part)])
+  }
+  return buffer
 }
 
 module.exports = async (scUrl, browser) => {

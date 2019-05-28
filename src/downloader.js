@@ -2,7 +2,7 @@ const https = require('https')
 
 module.exports = (url) =>
   new Promise((resolve, reject) => {
-    let buffer = Buffer.from('')
+    let buffer = Buffer.alloc(0)
     https.get(url, (res) => {
       res.on('data', (data) => {
         buffer = Buffer.concat([buffer, data])
