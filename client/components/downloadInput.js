@@ -89,7 +89,7 @@ const DownloadInput = () => {
           setSuccessDownload(downloadValue, data.sound)
         } catch (err) {
           console.error(err)
-          c(downloadValue)
+          setFailDownload(downloadValue)
         }
       }}
     >
