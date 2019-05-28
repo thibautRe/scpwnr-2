@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { SIZES, borderRadius, COLORS, TRANSITIONS } from '../styles'
+import { useDownload } from '../contexts/download'
 
 const Form = styled.form`
   display: flex;
@@ -63,17 +64,33 @@ const Button = styled.button`
 
 const DownloadInput = () => {
   const [downloadValue, setDownloadInputValue] = React.useState('')
-  const [isLoading, setIsLoading] = React.useState(false)
+  const {
+    addToDownloadList,
+    setSuccessDownload,
+    setFailDownload,
+  } = useDownload()
+
   return (
     <Form
       onSubmit={async (e) => {
         e.preventDefault()
-
         setDownloadInputValue('')
-        setIsLoading(true)
+        addToDownloadList(downloadValue)
 
-        await fetch(`/download/${downloadValue}`)
-        setIsLoading(false)
+        try {
+          const response = await fetch(`/download/${downloadValue}`)
+          if (response.status >= 400) {
+            console.error(`Request failed with status ${response.status}`)
+            setFailDownload(downloadValue)
+            return
+          }
+
+          const data = await response.json()
+          setSuccessDownload(downloadValue, data.sound)
+        } catch (err) {
+          console.error(err)
+          c(downloadValue)
+        }
       }}
     >
       <Input
@@ -85,7 +102,7 @@ const DownloadInput = () => {
       />
       <Label htmlFor="downloadInput">Download</Label>
       <Button type="submit" isOut={!!downloadValue}>
-        {isLoading ? '🐦' : 'Go'}
+        Go
       </Button>
     </Form>
   )

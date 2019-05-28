@@ -3,7 +3,9 @@ import { createGlobalStyle } from 'styled-components'
 
 import SoundList from './components/soundsList'
 import DownloadInput from './components/downloadInput'
+import DownloadList from './components/downloadList'
 import { COLORS } from './styles'
+import { DownloadProvider } from './contexts/download'
 
 import font from './fonts/ObjectSans-Regular.woff'
 
@@ -35,11 +37,12 @@ const GlobalStyles = createGlobalStyle`
 `
 
 const App = () => (
-  <>
+  <DownloadProvider>
     <GlobalStyles />
     <DownloadInput />
+    <DownloadList />
     <SoundList />
-  </>
+  </DownloadProvider>
 )
 
 export default App
