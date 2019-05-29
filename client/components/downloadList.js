@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { useDownload } from '../contexts/download'
 import { DOWNLOAD_STATUSES } from '../constants'
 import { borderRadius, COLORS, SIZES, TRANSITIONS } from '../styles'
+import useClose from '../hooks/useClose'
 
 const DownloadListItem = ({ name, payload, status }) => (
   <div>
@@ -73,29 +74,8 @@ const DownloadListButton = ({ onClick, amt = 0 }) => (
 )
 
 const DownloadList = () => {
-  const [isOpen, setIsOpen] = React.useState(false)
-  const containerRef = React.useRef()
+  const { isOpen, ref, setIsOpen } = useClose()
   const { downloadList } = useDownload()
-
-  React.useEffect(() => {
-    if (!isOpen) return
-    const onKeydown = (e) => {
-      if (e.keyCode !== 27) return
-      setIsOpen(false)
-    }
-    const onClick = (e) => {
-      if (!containerRef.current || containerRef.current.contains(e.target))
-        return
-      setIsOpen(false)
-    }
-
-    document.addEventListener('keydown', onKeydown)
-    document.addEventListener('click', onClick)
-    return () => {
-      document.removeEventListener('keydown', onKeydown)
-      document.removeEventListener('click', onClick)
-    }
-  }, [isOpen])
 
   return (
     <>
@@ -107,7 +87,7 @@ const DownloadList = () => {
           ).length
         }
       />
-      <DownloadListContainer isOpen={isOpen} ref={containerRef}>
+      <DownloadListContainer isOpen={isOpen} ref={ref}>
         {downloadList.map((item) => (
           <DownloadListItem {...item} key={item.name} />
         ))}
