@@ -17,7 +17,11 @@ export const DownloadProvider = ({ children }) => {
         addToDownloadList: (name) => {
           setDownloadList((l) => [
             ...l,
-            { name, status: DOWNLOAD_STATUSES.downloading },
+            {
+              name,
+              status: DOWNLOAD_STATUSES.downloading,
+              key: +new Date(),
+            },
           ])
         },
         setSuccessDownload: (name, payload) => {

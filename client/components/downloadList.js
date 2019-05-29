@@ -89,7 +89,7 @@ const DownloadList = () => {
       />
       <DownloadListContainer isOpen={isOpen} ref={ref}>
         {downloadList.map((item) => (
-          <DownloadListItem {...item} key={item.name} />
+          <DownloadListItem {...item} key={item.key} />
         ))}
       </DownloadListContainer>
     </>
