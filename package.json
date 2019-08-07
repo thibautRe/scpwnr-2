@@ -30,7 +30,7 @@
     "koa-router": "^7.4.0",
     "koa-webpack": "^5.2.1",
     "node-id3": "^0.1.7",
-    "puppeteer": "^1.12.2",
+    "puppeteer": "^1.19.0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "styled-components": "^4.1.3",
